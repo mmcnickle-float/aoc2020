@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'minitest/autorun'
+
 require_relative 'policy'
 
 class PolicyTest < Minitest::Test

@@ -7,4 +7,13 @@ class Policy
     @letter = letter
     @range = (at_least..at_most)
   end
+
+  def ==(other)
+    letter == other.letter &&
+      range == other.range
+  end
+
+  def to_s
+    "<Policy letter:#{letter} range:#{range}>"
+  end
 end

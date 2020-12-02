@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "awesome_print"
-
 class Password
+  attr_reader :value
+
   def initialize(value)
     @value = value
   end
@@ -14,7 +14,11 @@ class Password
     policy.range.include?(letter_frequency)
   end
 
-  private
+  def ==(other)
+    value == other.value
+  end
 
-  attr_reader :value
+  def to_s
+    "<Password value:#{value}>"
+  end
 end
