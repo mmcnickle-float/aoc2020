@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
+require_relative 'password'
+require_relative 'policy'
+
 class Parser
+  def parse_lines(lines)
+    lines.map { |line| parse_line(line) }
+  end
+
   def parse_line(line)
     line_format = /(?<at_least>\d+)-(?<at_most>\d+) (?<letter>\w): (?<password>.*)/
 
