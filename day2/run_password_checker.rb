@@ -10,9 +10,7 @@ parser = Parser.new
 parsed_lines = parser.parse_lines(password_lines)
 
 valid_lines = parsed_lines.filter do |policy, password|
-  password.valid?(policy)
+  policy.valid?(password)
 end
-
-puts valid_lines[2]
 
 puts valid_lines.count

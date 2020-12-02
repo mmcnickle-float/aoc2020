@@ -8,6 +8,13 @@ class Policy
     @range = (at_least..at_most)
   end
 
+  def valid?(password)
+    letter_frequencies = password.value.chars.tally
+
+    letter_frequency = letter_frequencies[letter]
+    range.include?(letter_frequency)
+  end
+
   def ==(other)
     letter == other.letter &&
       range == other.range

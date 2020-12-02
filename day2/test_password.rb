@@ -3,28 +3,11 @@
 require 'minitest/autorun'
 
 require_relative 'password'
-require_relative 'policy'
 
 class PasswordTest < Minitest::Test
-  def test_password_valid
-    test_cases = [
-      [Password.new('abcde'), Policy.new('a', 1, 3)],
-      [Password.new('ccccccccc'), Policy.new('c', 2, 9)]
-    ]
+  def test_new
+    password = Password.new('abcde')
 
-    test_cases.each do |password, policy|
-      assert password.valid?(policy)
-    end
-  end
-
-  def test_password_invalid
-    test_cases = [
-      [Password.new('abcde'), Policy.new('a', 2, 3)],
-      [Password.new('cdefg'), Policy.new('b', 1, 3)]
-    ]
-
-    test_cases.each do |password, policy|
-      assert !password.valid?(policy)
-    end
+    assert password.value == 'abcde'
   end
 end
