@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'password'
-require_relative 'policy'
 
 class Parser
   def initialize(policy_class)
