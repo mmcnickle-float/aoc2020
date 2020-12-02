@@ -4,6 +4,10 @@ require_relative 'password'
 require_relative 'policy'
 
 class Parser
+  def initialize(policy_class)
+    @policy_class = policy_class
+  end
+
   def parse_lines(lines)
     lines.map { |line| parse_line(line) }
   end
@@ -13,7 +17,7 @@ class Parser
 
     parsed = line_format.match(line)
 
-    policy = Policy.new(
+    policy = @policy_class.new(
       parsed[:letter],
       parsed[:at_least].to_i,
       parsed[:at_most].to_i

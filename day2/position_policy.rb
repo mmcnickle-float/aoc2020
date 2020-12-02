@@ -20,7 +20,8 @@ class PositionPolicy
 
   def ==(other)
     letter == other.letter &&
-      range == other.range
+      first_position == other.first_position &&
+      second_position == other.second_position
   end
 
   def to_s

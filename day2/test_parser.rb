@@ -5,10 +5,11 @@ require 'minitest/autorun'
 require_relative 'parser'
 require_relative 'password'
 require_relative 'policy'
+require_relative 'position_policy'
 
 class ParserTest < Minitest::Test
   def test_parse_line
-    parser = Parser.new
+    parser = Parser.new(Policy)
 
     line = '2-7 p: pbhhzpmppb'
     expected_policy = Policy.new('p', 2, 7)
@@ -17,8 +18,18 @@ class ParserTest < Minitest::Test
     assert_equal parser.parse_line(line), [expected_policy, expected_password]
   end
 
+  def test_parse_line_takes_policy_class
+    parser = Parser.new(PositionPolicy)
+
+    line = '2-7 p: pbhhzpmppb'
+    expected_policy = PositionPolicy.new('p', 2, 7)
+    expected_password = Password.new('pbhhzpmppb')
+
+    assert_equal parser.parse_line(line), [expected_policy, expected_password]
+  end
+
   def test_parse_line2
-    parser = Parser.new
+    parser = Parser.new(Policy)
 
     line = '14-20 c: cccvcccccccrcccccpcc'
     expected_policy = Policy.new('c', 14, 20)
@@ -28,7 +39,7 @@ class ParserTest < Minitest::Test
   end
 
   def test_parse_lines
-    parser = Parser.new
+    parser = Parser.new(Policy)
 
     lines = [
       '1-10 k: kkkknqxfszj',
