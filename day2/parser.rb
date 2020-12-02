@@ -17,7 +17,7 @@ class Parser
 
     parsed = line_format.match(line)
 
-    policy = @policy_class.new(
+    policy = policy_class.new(
       parsed[:letter],
       parsed[:at_least].to_i,
       parsed[:at_most].to_i
@@ -26,4 +26,8 @@ class Parser
 
     [policy, password]
   end
+
+  private
+
+  attr_reader :policy_class
 end
