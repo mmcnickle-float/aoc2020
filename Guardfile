@@ -16,7 +16,7 @@
 
 guard :minitest, test_folders: ['day1', 'day2'] do
   # with Minitest::Unit
-  watch(%r{^(.*)/.*$}) { |m| "#{m[1]}" }
+  watch(%r{^(.*)/.*$}) { |m| m[1] }
 
   # with Minitest::Spec
   # watch(%r{^spec/(.*)_spec\.rb$})
