@@ -61,7 +61,7 @@ module Field
 
   Ecl = Struct.new(:color) do
     def valid?
-      valid_colors = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
+      valid_colors = %w[amb blu brn gry grn hzl oth]
       valid_colors.include?(color)
     end
 
