@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'awesome_print'
+require_relative 'passport'
 
 class PassportFile
   def initialize(file)
