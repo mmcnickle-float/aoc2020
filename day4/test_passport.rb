@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/spec'
 
 require_relative 'passport'
+require_relative 'fields'
 
 describe Passport do
   describe '#valid?' do
@@ -74,6 +75,19 @@ describe Passport do
         }
 
         passport = Passport.new(passport_fields)
+
+        assert(passport.valid? == false)
+      end
+    end
+
+    describe 'when some of the fields are invalid' do
+      it 'returns true' do
+        data_string = <<~PASSPORT_DATA
+          eyr:1972 cid:100
+          hcl:#18171d ecl:amb hgt:170 pid:186cm iyr:2018 byr:1926
+        PASSPORT_DATA
+
+        passport = Passport.parse(data_string)
 
         assert(passport.valid? == false)
       end
