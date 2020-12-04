@@ -26,29 +26,10 @@ class Passport
     fields = field_pairs.each_with_object({}) do |field_pair, hash|
       name, value = field_pair.split(':')
 
-      field = case name.to_sym
-      when :byr
-        Field::Byr.new(value.to_i)
-      when :iyr
-        Field::Iyr.new(value.to_i)
-      when :eyr
-        Field::Eyr.new(value.to_i)
-      when :hgt
-        pattern = /(\d*)(\w*)/
-        matches = pattern.match(value)
+      field_classname = "Field::#{name.capitalize}"
+      field_class = Kernel.const_get(field_classname)
 
-        Field::Hgt.new(matches[1].to_i, matches[2])
-      when :hcl
-        Field::Hcl.new(value)
-      when :ecl
-        Field::Ecl.new(value)
-      when :pid
-        Field::Pid.new(value)
-      when :cid
-        Field::Cid.new(value)
-      end
-
-      hash[name.to_sym] = field
+      hash[name.to_sym] = field_class.parse(value)
     end
 
     Passport.new(fields)
