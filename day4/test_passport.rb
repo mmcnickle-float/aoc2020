@@ -79,4 +79,100 @@ describe Passport do
       end
     end
   end
+
+  describe '.parse' do
+    it 'returns a instantiated passport' do
+      data_string = <<~PASSPORT_DATA
+        ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+        byr:1937 iyr:2017 cid:147 hgt:183cm
+      PASSPORT_DATA
+
+      passport = Passport.parse(data_string)
+
+      expected_passport = Passport.new(
+        {
+          ecl: 'gry',
+          pid: '860033327',
+          eyr: '2020',
+          hcl: '#fffffd',
+          byr: '1937',
+          iyr: '2017',
+          cid: '147',
+          hgt: '183cm'
+        }
+      )
+
+      assert_equal(expected_passport, passport)
+    end
+
+    it 'returns a instantiated passport' do
+      data_string = <<~PASSPORT_DATA
+        iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
+        hcl:#cfa07d byr:1929
+      PASSPORT_DATA
+
+      passport = Passport.parse(data_string)
+
+      expected_passport = Passport.new(
+        {
+          ecl: 'amb',
+          pid: '028048884',
+          eyr: '2023',
+          hcl: '#cfa07d',
+          byr: '1929',
+          iyr: '2013',
+          cid: '350'
+        }
+      )
+
+      assert_equal(expected_passport, passport)
+    end
+
+    it 'returns a instantiated passport' do
+      data_string = <<~PASSPORT_DATA
+        hcl:#ae17e1 iyr:2013
+        eyr:2024
+        ecl:brn pid:760753108 byr:1931
+        hgt:179cm
+      PASSPORT_DATA
+
+      passport = Passport.parse(data_string)
+
+      expected_passport = Passport.new(
+        {
+          ecl: 'brn',
+          pid: '760753108',
+          eyr: '2024',
+          hcl: '#ae17e1',
+          byr: '1931',
+          iyr: '2013',
+          hgt: '179cm'
+        }
+      )
+
+      assert_equal(expected_passport, passport)
+    end
+
+    it 'returns a instantiated passport' do
+      data_string = <<~PASSPORT_DATA
+        hcl:#cfa07d eyr:2025 pid:166559648
+        iyr:2011 ecl:brn hgt:59in
+      PASSPORT_DATA
+
+      passport = Passport.parse(data_string)
+
+      expected_passport = Passport.new(
+        {
+          ecl: 'brn',
+          pid: '166559648',
+          eyr: '2025',
+          hcl: '#cfa07d',
+          iyr: '2011',
+          hgt: '59in'
+        }
+      )
+
+      assert_equal(expected_passport, passport)
+    end
+  end
 end
