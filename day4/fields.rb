@@ -48,4 +48,10 @@ module Field
       /^[0-9]{9}$/.match?(id)
     end
   end
+
+  Cid = Struct.new(:id) do
+    def valid?
+      true
+    end
+  end
 end

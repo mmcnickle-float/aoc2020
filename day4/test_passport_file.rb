@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/spec'
 
 require_relative 'passport_file'
+require_relative 'fields'
 
 describe PassportFile do
   describe '#passports' do
@@ -31,46 +32,46 @@ describe PassportFile do
       expected_passports = [
         Passport.new(
           {
-            ecl: 'gry',
-            pid: '860033327',
-            eyr: '2020',
-            hcl: '#fffffd',
-            byr: '1937',
-            iyr: '2017',
-            cid: '147',
-            hgt: '183cm'
+            ecl: Field::Ecl.new('gry'),
+            pid: Field::Pid.new('860033327'),
+            eyr: Field::Eyr.new(2020),
+            hcl: Field::Hcl.new('#fffffd'),
+            byr: Field::Byr.new(1937),
+            iyr: Field::Iyr.new(2017),
+            cid: Field::Cid.new('147'),
+            hgt: Field::Hgt.new(183, 'cm')
           }
         ),
         Passport.new(
           {
-            ecl: 'amb',
-            pid: '028048884',
-            eyr: '2023',
-            hcl: '#cfa07d',
-            byr: '1929',
-            iyr: '2013',
-            cid: '350'
+            ecl: Field::Ecl.new('amb'),
+            pid: Field::Pid.new('028048884'),
+            eyr: Field::Eyr.new(2023),
+            hcl: Field::Hcl.new('#cfa07d'),
+            byr: Field::Byr.new(1929),
+            iyr: Field::Iyr.new(2013),
+            cid: Field::Cid.new('350')
           }
         ),
         Passport.new(
           {
-            ecl: 'brn',
-            pid: '760753108',
-            eyr: '2024',
-            hcl: '#ae17e1',
-            byr: '1931',
-            iyr: '2013',
-            hgt: '179cm'
+            ecl: Field::Ecl.new('brn'),
+            pid: Field::Pid.new('760753108'),
+            eyr: Field::Eyr.new(2024),
+            hcl: Field::Hcl.new('#ae17e1'),
+            byr: Field::Byr.new(1931),
+            iyr: Field::Iyr.new(2013),
+            hgt: Field::Hgt.new(179, 'cm')
           }
         ),
         Passport.new(
           {
-            ecl: 'brn',
-            pid: '166559648',
-            eyr: '2025',
-            hcl: '#cfa07d',
-            iyr: '2011',
-            hgt: '59in'
+            ecl: Field::Ecl.new('brn'),
+            pid: Field::Pid.new('166559648'),
+            eyr: Field::Eyr.new(2025),
+            hcl: Field::Hcl.new('#cfa07d'),
+            iyr: Field::Iyr.new(2011),
+            hgt: Field::Hgt.new(59, 'in')
           }
         )
       ]
