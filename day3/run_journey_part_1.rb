@@ -2,8 +2,6 @@
 
 require 'matrix'
 
-require 'awesome_print'
-
 require_relative 'toboggan_map'
 require_relative 'journey'
 

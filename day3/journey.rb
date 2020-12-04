@@ -18,7 +18,6 @@ class Journey
       if map.tree?(position[0], position[1])
         num_trees += 1
       end
-
     rescue ArgumentError
       break
     end

@@ -13,7 +13,7 @@ class TobogganMap
   end
 
   def tree?(x, y)
-    # Don't loop in y diretion
+    # Don't loop in y direction
     raise(ArgumentError, 'y is beyond map extents') if y >= height
 
     # Loop in x direction
