@@ -2,7 +2,7 @@
 
 require_relative 'boarding_pass_file'
 
-file = File.open('boarding_passes.txt')
+file = File.open('codes.txt')
 boarding_pass_file = BoardingPassFile.new(file)
 
 seats = boarding_pass_file.seats
