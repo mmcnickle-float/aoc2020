@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 Seat = Struct.new(:row, :column) do
+  def id
+    row * 8 + column
+  end
+
   def self.from_code(code)
     row_code = code[0..6]
     column_code = code[7..10]

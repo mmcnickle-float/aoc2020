@@ -25,4 +25,13 @@ describe Seat do
       end
     end
   end
+
+  describe '#id' do
+    it 'returns the seat id' do
+      assert_equal(357, Seat.new(44, 5).id)
+      assert_equal(567, Seat.new(70, 7).id)
+      assert_equal(119, Seat.new(14, 7).id)
+      assert_equal(820, Seat.new(102, 4).id)
+    end
+  end
 end
