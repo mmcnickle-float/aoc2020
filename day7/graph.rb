@@ -17,6 +17,9 @@ class Graph
 
   def add_link(parent_name, child_name)
     parent = nodes[parent_name]
+
+    return unless child_name
+
     child = nodes[child_name]
 
     parent.add_child(child)

@@ -22,14 +22,28 @@ describe Graph do
   end
 
   describe '#add_link' do
-    it 'adds a link between two new nodes' do
-      graph = Graph.new
+    describe 'when there are two nodes' do
+      it 'adds a link between two new nodes' do
+        graph = Graph.new
 
-      graph.add_link(:parent, :child)
+        graph.add_link(:parent, :child)
 
-      assert_equal(%i[parent child], graph.nodes.keys)
-      assert_equal([graph[:child]], graph[:parent].children)
-      assert_equal([graph[:parent]], graph[:child].parents)
+        assert_equal(%i[parent child], graph.nodes.keys)
+        assert_equal([graph[:child]], graph[:parent].children)
+        assert_equal([graph[:parent]], graph[:child].parents)
+      end
+    end
+
+    describe 'when there is only one node' do
+      it 'adds the node to the graph' do
+        graph = Graph.new
+
+        graph.add_link(:parent, nil)
+
+        assert_equal(%i[parent], graph.nodes.keys)
+        assert_equal([], graph[:parent].children)
+        assert_equal([], graph[:parent].parents)
+      end
     end
   end
 end
