@@ -19,7 +19,7 @@ class Node
 
   def ==(other)
     name == other.name &&
-      children = other.children &&
-      parents = other.parents
+      children == other.children &&
+      parents == other.parents
   end
 end

@@ -3,6 +3,8 @@
 require_relative 'node'
 
 class Graph
+  attr_reader :nodes
+
   def initialize
     @nodes = Hash.new do |hash, key|
       hash[key] = Node.new(key)
@@ -13,7 +15,11 @@ class Graph
     nodes[node_name]
   end
 
-  private
+  def add_link(parent_name, child_name)
+    parent = nodes[parent_name]
+    child = nodes[child_name]
 
-  attr_reader :nodes
+    parent.add_child(child)
+    child.add_parent(parent)
+  end
 end
