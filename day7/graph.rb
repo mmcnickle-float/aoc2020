@@ -25,4 +25,14 @@ class Graph
     parent.add_child(child)
     child.add_parent(parent)
   end
+
+  def self.from_file(file)
+    file.lines.each_with_object(Graph.new) do |rule_text, graph|
+      rule = Rule.parse(rule_text)
+
+      rule.links.each do |link|
+        graph.add_link(*link)
+      end
+    end
+  end
 end
