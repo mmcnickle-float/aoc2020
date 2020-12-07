@@ -17,6 +17,12 @@ class Node
     parents << parent
   end
 
+  def ancestor_nodes
+    return Set[] if parents.empty?
+
+    Set[*parents] + parents.map(&:ancestor_nodes).reduce(&:+)
+  end
+
   def ==(other)
     name == other.name &&
       children == other.children &&

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 Rule = Struct.new(:links) do
   def self.parse(rule_text)
     pattern = /(\w* \w*) bags?/
