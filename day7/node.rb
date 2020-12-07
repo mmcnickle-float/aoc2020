@@ -9,8 +9,8 @@ class Node
     @parents = []
   end
 
-  def add_child(child)
-    children << child
+  def add_child(child, number = 1)
+    children << [child, number]
   end
 
   def add_parent(parent)
@@ -21,6 +21,14 @@ class Node
     return Set[] if parents.empty?
 
     Set[*parents] + parents.map(&:ancestor_nodes).reduce(&:+)
+  end
+
+  def count_all_children
+    return 0 if children.empty?
+
+    children.reduce(0) do |sum, child|
+      sum + child[1] + (child[1] * child[0].count_all_children)
+    end
   end
 
   def ==(other)

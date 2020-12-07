@@ -26,10 +26,10 @@ describe Graph do
       it 'adds a link between two new nodes' do
         graph = Graph.new
 
-        graph.add_link(:parent, :child)
+        graph.add_link(:parent, :child, 1)
 
         assert_equal(%i[parent child], graph.nodes.keys)
-        assert_equal([graph[:child]], graph[:parent].children)
+        assert_equal([[graph[:child], 1]], graph[:parent].children)
         assert_equal([graph[:parent]], graph[:child].parents)
       end
     end
@@ -38,7 +38,7 @@ describe Graph do
       it 'adds the node to the graph' do
         graph = Graph.new
 
-        graph.add_link(:parent, nil)
+        graph.add_link(:parent, nil, nil)
 
         assert_equal(%i[parent], graph.nodes.keys)
         assert_equal([], graph[:parent].children)

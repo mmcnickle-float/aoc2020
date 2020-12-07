@@ -13,7 +13,7 @@ describe Rule do
         rule = Rule.parse(rule_text)
 
         expected_links = [
-          [:faded_blue, nil]
+          [:faded_blue, nil, nil]
         ]
 
         assert_equal(expected_links, rule.links)
@@ -26,7 +26,7 @@ describe Rule do
         rule = Rule.parse(rule_text)
 
         expected_links = [
-          %i[bright_white shiny_gold]
+          [:bright_white, :shiny_gold, 1]
         ]
 
         assert_equal(expected_links, rule.links)
@@ -39,10 +39,10 @@ describe Rule do
         rule = Rule.parse(rule_text)
 
         expected_links = [
-          %i[dark_plum wavy_coral],
-          %i[dark_plum striped_gray],
-          %i[dark_plum muted_blue],
-          %i[dark_plum dull_aqua]
+          [:dark_plum, :wavy_coral, 2],
+          [:dark_plum, :striped_gray, 2],
+          [:dark_plum, :muted_blue, 4],
+          [:dark_plum, :dull_aqua, 2]
         ]
 
         assert_equal(expected_links, rule.links)

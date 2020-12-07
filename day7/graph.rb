@@ -15,14 +15,14 @@ class Graph
     nodes[node_name]
   end
 
-  def add_link(parent_name, child_name)
+  def add_link(parent_name, child_name, number)
     parent = nodes[parent_name]
 
     return unless child_name
 
     child = nodes[child_name]
 
-    parent.add_child(child)
+    parent.add_child(child, number)
     child.add_parent(parent)
   end
 
