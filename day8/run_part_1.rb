@@ -3,7 +3,7 @@
 require_relative 'cpu'
 require_relative 'program'
 
-file = File.open('example_program.txt')
+file = File.open('program.txt')
 program = Program.from_file(file)
 
 cpu = CPU.new
