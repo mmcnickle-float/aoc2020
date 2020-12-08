@@ -148,3 +148,33 @@ describe CPU do
     end
   end
 end
+
+describe Instruction do
+  describe '.parse' do
+    it 'can parse an instrction' do
+      instruction = Instruction.parse('nop +0')
+      expected_instruction = Instruction.new(:nop, 0)
+      assert_equal(expected_instruction, instruction)
+
+      instruction = Instruction.parse('nop -0')
+      expected_instruction = Instruction.new(:nop, 0)
+      assert_equal(expected_instruction, instruction)
+
+      instruction = Instruction.parse('nop -1')
+      expected_instruction = Instruction.new(:nop, -1)
+      assert_equal(expected_instruction, instruction)
+
+      instruction = Instruction.parse('nop +1')
+      expected_instruction = Instruction.new(:nop, 1)
+      assert_equal(expected_instruction, instruction)
+
+      instruction = Instruction.parse('jmp +1')
+      expected_instruction = Instruction.new(:jmp, 1)
+      assert_equal(expected_instruction, instruction)
+
+      instruction = Instruction.parse('acc +10')
+      expected_instruction = Instruction.new(:acc, 10)
+      assert_equal(expected_instruction, instruction)
+    end
+  end
+end

@@ -2,7 +2,15 @@
 
 require 'set'
 
-Instruction = Struct.new(:opcode, :operand)
+Instruction = Struct.new(:opcode, :operand) do
+  def self.parse(instruction_text)
+    opcode_token, operand_token = instruction_text.split
+
+    opcode = opcode_token.to_sym
+    operand = operand_token.to_i
+    new(opcode, operand)
+  end
+end
 
 class InfiniteLoopError < StandardError; end
 
