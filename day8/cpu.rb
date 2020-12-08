@@ -12,14 +12,7 @@ class CPU
 
   def run(instructions)
     instructions.each do |instruction|
-      case instruction.opcode
-      when :acc
-        acc(instruction.operand)
-      when :nop
-        nop(instruction.operand)
-      else
-        raise(ArgumentError, "opcode #{instruction.opcode} not valid")
-      end
+      send(instruction.opcode, instruction.operand)
     end
   end
 
@@ -32,5 +25,9 @@ class CPU
 
   def nop(_operand)
     @program_counter += 1
+  end
+
+  def jmp(operand)
+    @program_counter += operand
   end
 end

@@ -50,12 +50,50 @@ describe CPU do
       cpu = CPU.new
 
       instructions = [
-        Instruction.new(:acc, 1),
+        Instruction.new(:acc, 1)
       ]
 
       cpu.run(instructions)
 
       assert_equal(1, cpu.accumulator)
+    end
+
+    it 'decreases the accumulator by a given value' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:acc, -9)
+      ]
+
+      cpu.run(instructions)
+
+      assert_equal(-9, cpu.accumulator)
+    end
+  end
+
+  describe 'jmp' do
+    it 'increases the program counter by a given value' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:jmp, 3)
+      ]
+
+      cpu.run(instructions)
+
+      assert_equal(3, cpu.program_counter)
+    end
+
+    it 'decreases the program counter by a given value' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:jmp, -3)
+      ]
+
+      cpu.run(instructions)
+
+      assert_equal(-3, cpu.program_counter)
     end
   end
 end
