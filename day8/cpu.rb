@@ -3,15 +3,34 @@
 Instruction = Struct.new(:opcode, :operand)
 
 class CPU
-  attr_reader :program_counter
+  attr_reader :program_counter, :accumulator
 
-  def initialize()
+  def initialize
     @program_counter = 0
+    @accumulator = 0
   end
 
   def run(instructions)
     instructions.each do |instruction|
-      @program_counter += 1
+      case instruction.opcode
+      when :acc
+        acc(instruction.operand)
+      when :nop
+        nop(instruction.operand)
+      else
+        raise(ArgumentError, "opcode #{instruction.opcode} not valid")
+      end
     end
+  end
+
+  private
+
+  def acc(operand)
+    @accumulator += operand
+    @program_counter += 1
+  end
+
+  def nop(_operand)
+    @program_counter += 1
   end
 end

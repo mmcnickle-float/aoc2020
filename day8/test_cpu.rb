@@ -11,6 +11,7 @@ describe CPU do
       cpu = CPU.new
 
       assert_equal(0, cpu.program_counter)
+      assert_equal(0, cpu.accumulator)
     end
   end
 
@@ -19,26 +20,42 @@ describe CPU do
       cpu = CPU.new
 
       instructions = [
-        Instruction.new('nop', 1)
+        Instruction.new(:nop, 1)
       ]
 
       cpu.run(instructions)
 
       assert_equal(1, cpu.program_counter)
+      assert_equal(0, cpu.accumulator)
     end
 
     it 'advances the program counter by 1 each instruction' do
       cpu = CPU.new
 
       instructions = [
-        Instruction.new('nop', 1),
-        Instruction.new('nop', 10),
-        Instruction.new('nop', -1)
+        Instruction.new(:nop, 1),
+        Instruction.new(:nop, 10),
+        Instruction.new(:nop, -1)
       ]
 
       cpu.run(instructions)
 
       assert_equal(3, cpu.program_counter)
+      assert_equal(0, cpu.accumulator)
+    end
+  end
+
+  describe 'acc' do
+    it 'increases the accumulator by a given value' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:acc, 1),
+      ]
+
+      cpu.run(instructions)
+
+      assert_equal(1, cpu.accumulator)
     end
   end
 end
