@@ -123,5 +123,28 @@ describe CPU do
 
       assert_raises(InfiniteLoopError) { cpu.run(instructions) }
     end
+
+    it 'halts execution before an instruction would be called twice' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:nop, 0),
+        Instruction.new(:acc, 1),
+        Instruction.new(:jmp, 4),
+        Instruction.new(:acc, 3),
+        Instruction.new(:jmp, -3),
+        Instruction.new(:acc, -99),
+        Instruction.new(:acc, 1),
+        Instruction.new(:jmp, -4),
+        Instruction.new(:acc, 6)
+      ]
+
+      begin
+        cpu.run(instructions)
+      rescue InfiniteLoopError
+      end
+
+      assert_equal(5, cpu.accumulator)
+    end
   end
 end
