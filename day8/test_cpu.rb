@@ -84,6 +84,21 @@ describe CPU do
       assert_equal(3, cpu.program_counter)
     end
 
+    it 'does not execute instructions between the jumps' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:jmp, 2),
+        Instruction.new(:acc, 10),
+        Instruction.new(:nop, 0)
+      ]
+
+      cpu.run(instructions)
+
+      assert_equal(0, cpu.accumulator)
+      assert_equal(3, cpu.program_counter)
+    end
+
     it 'decreases the program counter by a given value' do
       cpu = CPU.new
 
@@ -94,6 +109,19 @@ describe CPU do
       cpu.run(instructions)
 
       assert_equal(-3, cpu.program_counter)
+    end
+  end
+
+  describe '#run' do
+    it 'halts execution before an instruction would be called twice' do
+      cpu = CPU.new
+
+      instructions = [
+        Instruction.new(:nop, 1),
+        Instruction.new(:jmp, -1)
+      ]
+
+      assert_raises(InfiniteLoopError) { cpu.run(instructions) }
     end
   end
 end
