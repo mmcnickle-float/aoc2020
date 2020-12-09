@@ -5,20 +5,23 @@ require_relative 'preamble'
 class InvalidInput < StandardError; end
 
 Stream = Struct.new(:input, :preamble_size) do
-  def validate
+  def first_invalid_number
     preamble_index = 0
     input_index = preamble_size
 
     loop do
-      preamble = Preamble.new(input.slice(preamble_index, preamble_size))
       number = input[input_index]
+      preamble = Preamble.new(input.slice(preamble_index, preamble_size))
+
+      return if number.nil?
+
       is_valid = preamble.valid_next_number?(number)
 
       # puts preamble.inspect
       # puts number.inspect
       # puts is_valid
 
-      raise(InvalidInput, number) if is_valid == false
+      return number if is_valid == false
 
       preamble_index += 1
       input_index += 1
