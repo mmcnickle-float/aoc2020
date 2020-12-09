@@ -6,26 +6,31 @@ class InvalidInput < StandardError; end
 
 Stream = Struct.new(:input, :preamble_size) do
   def first_invalid_number
-    preamble_index = 0
-    input_index = preamble_size
+    input_indexes = preamble_size...input.length
 
-    loop do
-      number = input[input_index]
+    input_indexes.each do |i|
+      number = input[i]
+
+      preamble_index = i - preamble_size
       preamble = Preamble.new(input.slice(preamble_index, preamble_size))
 
-      return if number.nil?
-
-      is_valid = preamble.valid_next_number?(number)
-
-      # puts preamble.inspect
-      # puts number.inspect
-      # puts is_valid
-
-      return number if is_valid == false
-
-      preamble_index += 1
-      input_index += 1
+      return number unless preamble.valid_next_number?(number)
     end
+
+    nil
+  end
+
+  def contiguous_sum_list(target)
+    window_sizes = 2..input.length
+
+    window_sizes.each do |window_size|
+      input.each_index do |i|
+        trial = input.slice(i, window_size)
+        return trial if trial.sum == target
+      end
+    end
+
+    nil
   end
 
   def self.from_file(file, preamble_size)
