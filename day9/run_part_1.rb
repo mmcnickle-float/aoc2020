@@ -2,8 +2,11 @@
 
 require_relative 'stream'
 
-file = File.open('example_input.txt')
-stream = Stream.from_file(file, 5)
+
+preamble_size = 25
+file = File.open('input.txt')
+
+stream = Stream.from_file(file, preamble_size)
 
 begin
   stream.validate
