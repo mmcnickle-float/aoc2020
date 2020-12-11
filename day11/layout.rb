@@ -80,7 +80,16 @@ class Layout
     Layout.new(next_grid)
   end
 
+  def num_occupied_seats
+    tally = grid.flatten.tally
+    tally.default = 0
+
+    tally['#']
+  end
+
   def ==(other)
+    return false unless other.is_a?(Layout)
+
     grid == other.grid
   end
 end
