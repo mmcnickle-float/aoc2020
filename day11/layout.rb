@@ -3,8 +3,8 @@
 class Layout
   attr_reader :width, :height
 
-  def initialize(data)
-    @grid = data.split(/\n/).map(&:chars)
+  def initialize(grid)
+    @grid = grid
 
     @width = grid[0].count
     @height = grid.count
@@ -12,6 +12,10 @@ class Layout
 
   def [](x, y)
     grid[y][x]
+  end
+
+  def []=(x, y, state)
+    grid[y][x] = state
   end
 
   def adjacent_states(x, y)
@@ -28,6 +32,18 @@ class Layout
         grid[i][j]
       end
     end
+  end
+
+  def self.from_string(data)
+    grid = data.split(/\n/).map(&:chars)
+
+    new(grid)
+  end
+
+  def copy
+    grid_copy = Marshal.load(Marshal.dump(grid))
+
+    Layout.new(grid_copy)
   end
 
   private
