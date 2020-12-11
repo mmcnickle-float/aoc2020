@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Layout
-  attr_reader :width, :height
+  attr_reader :grid, :width, :height
 
   def initialize(grid)
     @grid = grid
@@ -34,6 +34,13 @@ class Layout
     end
   end
 
+  def adjacent_tally(x, y)
+    tally = adjacent_states(x, y).tally
+    tally.default = 0
+
+    tally
+  end
+
   def self.from_string(data)
     grid = data.split("\n").map(&:chars)
 
@@ -48,7 +55,32 @@ class Layout
     Layout.from_string(to_s)
   end
 
-  private
+  def next_state(x, y)
+    state = self[x, y]
 
-  attr_reader :grid
+    case state
+    when '.'
+      return state
+    when 'L'
+      return '#' if adjacent_tally(x, y)['#'].zero?
+    when '#'
+      return 'L' if adjacent_tally(x, y)['#'] >= 4
+    end
+
+    state
+  end
+
+  def next_layout
+    next_grid = grid.map.with_index do |row, i|
+      row.map.with_index do |_state, j|
+        next_state(j, i)
+      end
+    end
+
+    Layout.new(next_grid)
+  end
+
+  def ==(other)
+    grid == other.grid
+  end
 end
