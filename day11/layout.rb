@@ -41,7 +41,7 @@ class Layout
   end
 
   def to_s
-    grid.map(&:join).join("\n")
+    grid.map(&:join).join("\n") + "\n"
   end
 
   def copy
