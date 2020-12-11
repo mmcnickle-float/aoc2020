@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'matrix'
-
 class LayoutTwo
   attr_reader :grid, :width, :height
 
@@ -22,32 +20,34 @@ class LayoutTwo
 
   def nearest_line_of_sight_states(x, y)
     direction_vectors = [
-      Vector[0, -1],
-      Vector[1, -1],
-      Vector[1, 0],
-      Vector[1, 1],
-      Vector[0, 1],
-      Vector[-1, 1],
-      Vector[-1, 0],
-      Vector[-1, -1]
+      [0, -1],
+      [1, -1],
+      [1, 0],
+      [1, 1],
+      [0, 1],
+      [-1, 1],
+      [-1, 0],
+      [-1, -1]
     ]
 
     direction_vectors.filter_map do |direction_vector|
       state = nil
-      target_vector = Vector[x, y]
+      target_vector = [x, y]
 
       loop do
-        target_vector += direction_vector
+        target_vector = [
+          target_vector[0] + direction_vector[0],
+          target_vector[1] + direction_vector[1]
+        ]
 
-        i = target_vector[0]
-        j = target_vector[1]
+        i, j = target_vector
 
         break if i.negative? || i >= width
         break if j.negative? || j >= height
 
-        state = self[i, j]
+        state = grid[j][i]
 
-        break if state == '#' || state == 'L'
+        break if ['#', 'L'].include?(state)
       end
 
       state unless state == '.'
