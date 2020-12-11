@@ -53,6 +53,75 @@ describe Layout do
     end
   end
 
+  describe 'all_line_of_sight_states' do
+    it 'returns the states of the all chairs in each cardinal direction' do
+      data = <<~DATA
+        .......#.
+        ...#.....
+        .#.......
+        .........
+        ..#L....#
+        ....#....
+        .........
+        #........
+        ...#.....
+      DATA
+
+      layout = Layout.from_string(data)
+
+      expected_states = [
+        ['.', '.', '#'],
+        ['.', '.', '.', '#'],
+        ['.', '.', '.', '.', '#'],
+        ['#'],
+        ['.', '.', '.', '#'],
+        ['.', '.', '#'],
+        ['#'],
+        ['.', '#']
+      ]
+
+      assert_equal(expected_states, layout.all_line_of_sight_states(3, 4))
+    end
+  end
+
+  describe 'nearest_line_of_sight_states' do
+    it 'returns the states of the nearest chair in each direction' do
+      data = <<~DATA
+        .......#.
+        ...#.....
+        .#.......
+        .........
+        ..#L....#
+        ....#....
+        .........
+        #........
+        ...#.....
+      DATA
+
+      layout = Layout.from_string(data)
+
+      expected_states = ['#', '#', '#', '#', '#', '#', '#', '#']
+
+      assert_equal(expected_states, layout.nearest_line_of_sight_states(3, 4))
+
+      data = <<~DATA
+        .##.##.
+        #.#.#.#
+        ##...##
+        ...L...
+        ##...##
+        #.#.#.#
+        .##.##.
+      DATA
+
+      layout = Layout.from_string(data)
+
+      expected_states = []
+
+      assert_equal(expected_states, layout.nearest_line_of_sight_states(3, 3))
+    end
+  end
+
   describe '#copy' do
     it 'returns a deep copy of the layout' do
       layout_copy = layout.copy

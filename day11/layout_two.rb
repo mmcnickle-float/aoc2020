@@ -2,7 +2,7 @@
 
 require 'matrix'
 
-class Layout
+class LayoutTwo
   attr_reader :grid, :width, :height
 
   def initialize(grid)
@@ -18,63 +18,6 @@ class Layout
 
   def []=(x, y, state)
     grid[y][x] = state
-  end
-
-  def adjacent_states(x, y)
-    rows = (y - 1)..(y + 1)
-    columns = (x - 1)..(x + 1)
-
-    rows = rows.reject { |i| i.negative? || i >= height }
-    columns = columns.reject { |j| j.negative? || j >= width }
-
-    rows.flat_map do |i|
-      columns.filter_map do |j|
-        next if i == y && j == x
-
-        grid[i][j]
-      end
-    end
-  end
-
-  def adjacent_tally(x, y)
-    tally = adjacent_states(x, y).tally
-    tally.default = 0
-
-    tally
-  end
-
-  def all_line_of_sight_states(x, y)
-    direction_vectors = [
-      Vector[0, -1],
-      Vector[1, -1],
-      Vector[1, 0],
-      Vector[1, 1],
-      Vector[0, 1],
-      Vector[-1, 1],
-      Vector[-1, 0],
-      Vector[-1, -1]
-    ]
-
-    direction_vectors.map do |direction_vector|
-      direction_states = []
-      target_vector = Vector[x, y]
-
-      loop do
-        target_vector += direction_vector
-
-        i = target_vector[0]
-        j = target_vector[1]
-
-        break if i.negative? || i >= width
-        break if j.negative? || j >= height
-
-        direction_states << self[i, j]
-
-        break if self[i, j] == '#' || self[i, j] == 'L'
-      end
-
-      direction_states
-    end
   end
 
   def nearest_line_of_sight_states(x, y)
@@ -122,19 +65,22 @@ class Layout
   end
 
   def copy
-    Layout.from_string(to_s)
+    LayoutTwo.from_string(to_s)
   end
 
   def next_state(x, y)
     state = self[x, y]
 
+    nearest_tally = nearest_line_of_sight_states(x, y).tally
+    nearest_tally.default = 0
+
     case state
     when '.'
       return state
     when 'L'
-      return '#' if adjacent_tally(x, y)['#'].zero?
+      return '#' if nearest_tally['#'].zero?
     when '#'
-      return 'L' if adjacent_tally(x, y)['#'] >= 4
+      return 'L' if nearest_tally['#'] >= 5
     end
 
     state
@@ -147,7 +93,7 @@ class Layout
       end
     end
 
-    Layout.new(next_grid)
+    LayoutTwo.new(next_grid)
   end
 
   def num_occupied_seats
@@ -158,7 +104,7 @@ class Layout
   end
 
   def ==(other)
-    return false unless other.is_a?(Layout)
+    return false unless other.is_a?(LayoutTwo)
 
     grid == other.grid
   end
