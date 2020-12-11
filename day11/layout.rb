@@ -35,15 +35,17 @@ class Layout
   end
 
   def self.from_string(data)
-    grid = data.split(/\n/).map(&:chars)
+    grid = data.split("\n").map(&:chars)
 
     new(grid)
   end
 
-  def copy
-    grid_copy = Marshal.load(Marshal.dump(grid))
+  def to_s
+    grid.map(&:join).join("\n")
+  end
 
-    Layout.new(grid_copy)
+  def copy
+    Layout.from_string(to_s)
   end
 
   private

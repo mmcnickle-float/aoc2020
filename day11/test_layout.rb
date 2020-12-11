@@ -31,6 +31,14 @@ describe Layout do
     end
   end
 
+  describe 'to_s' do
+    it 'returns a string representation of the layout' do
+      layout = Layout.from_string(data)
+
+      assert_equal(data.chomp, layout.to_s)
+    end
+  end
+
   describe '#[]=' do
     it 'modifies the state of that position' do
       layout = Layout.from_string(data)
