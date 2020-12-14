@@ -29,6 +29,12 @@ Ship = Struct.new(:x, :y, :heading) do
     self.heading = (heading + degrees) % 360
   end
 
+  def run_instructions(instructions)
+    instructions.each do |instruction|
+      send(instruction.opcode, instruction.operand)
+    end
+  end
+
   def direction
     heading_to_direction = {
       0 => :e,
