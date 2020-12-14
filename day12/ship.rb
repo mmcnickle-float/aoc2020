@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
-Ship = Struct.new(:x, :y, :heading) do
+require_relative 'vector'
+
+Ship = Struct.new(:position, :heading) do
   def n(distance)
-    self.y += distance
+    position.y += distance
   end
 
   def s(distance)
-    self.y -= distance
+    position.y -= distance
   end
 
   def e(distance)
-    self.x += distance
+    position.x += distance
   end
 
   def w(distance)
-    self.x -= distance
+    position.x -= distance
   end
 
   def f(distance)
@@ -47,10 +49,10 @@ Ship = Struct.new(:x, :y, :heading) do
   end
 
   def manhattan_distance
-    x.abs + y.abs
+    position.manhattan_distance
   end
 
   def self.initial
-    new(0, 0, 0)
+    new(Vector.new(0, 0), 0)
   end
 end

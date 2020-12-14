@@ -12,7 +12,7 @@ describe Ship do
     it 'moves the ship in a positive y direction' do
       ship.n(13)
 
-      assert_equal(13, ship.y)
+      assert_equal(13, ship.position.y)
     end
   end
 
@@ -20,7 +20,7 @@ describe Ship do
     it 'moves the ship in a negative y direction' do
       ship.s(13)
 
-      assert_equal(-13, ship.y)
+      assert_equal(-13, ship.position.y)
     end
   end
 
@@ -28,7 +28,7 @@ describe Ship do
     it 'moves the ship in a positive x direction' do
       ship.e(13)
 
-      assert_equal(13, ship.x)
+      assert_equal(13, ship.position.x)
     end
   end
 
@@ -36,7 +36,7 @@ describe Ship do
     it 'moves the ship in a negative x direction' do
       ship.w(13)
 
-      assert_equal(-13, ship.x)
+      assert_equal(-13, ship.position.x)
     end
   end
 
@@ -69,23 +69,23 @@ describe Ship do
   describe '#f' do
     it 'moves the ship in the direction it is heading' do
       ship.f(13)
-      assert_equal(13, ship.x)
-      assert_equal(0, ship.y)
+      assert_equal(13, ship.position.x)
+      assert_equal(0, ship.position.y)
 
       ship.l(90)
       ship.f(13)
-      assert_equal(13, ship.x)
-      assert_equal(13, ship.y)
+      assert_equal(13, ship.position.x)
+      assert_equal(13, ship.position.y)
 
       ship.l(90)
       ship.f(13)
-      assert_equal(0, ship.x)
-      assert_equal(13, ship.y)
+      assert_equal(0, ship.position.x)
+      assert_equal(13, ship.position.y)
 
       ship.l(90)
       ship.f(13)
-      assert_equal(0, ship.x)
-      assert_equal(0, ship.y)
+      assert_equal(0, ship.position.x)
+      assert_equal(0, ship.position.y)
     end
   end
 
