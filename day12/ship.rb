@@ -40,6 +40,10 @@ Ship = Struct.new(:x, :y, :heading) do
     heading_to_direction[heading]
   end
 
+  def manhattan_distance
+    x.abs + y.abs
+  end
+
   def self.initial
     new(0, 0, 0)
   end

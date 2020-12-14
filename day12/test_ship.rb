@@ -67,7 +67,7 @@ describe Ship do
   end
 
   describe '#f' do
-    it 'moves the ship in the direction it\'s heading' do
+    it 'moves the ship in the direction it is heading' do
       ship.f(13)
       assert_equal(13, ship.x)
       assert_equal(0, ship.y)
@@ -86,6 +86,18 @@ describe Ship do
       ship.f(13)
       assert_equal(0, ship.x)
       assert_equal(0, ship.y)
+    end
+  end
+
+  describe '#manhattan_distance' do
+    it 'returns the distance from its origin to its current position' do
+      ship.f(10)
+      ship.n(3)
+      ship.f(7)
+      ship.r(90)
+      ship.f(11)
+
+      assert_equal(25, ship.manhattan_distance)
     end
   end
 end
