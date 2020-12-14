@@ -6,10 +6,10 @@ require 'minitest/spec'
 require_relative 'ship'
 
 describe Ship do
+  let(:ship) { Ship.initial }
+
   describe '#n' do
     it 'moves the ship in a positive y direction' do
-      ship = Ship.new(0, 0)
-
       ship.n(13)
 
       assert_equal(13, ship.y)
@@ -18,8 +18,6 @@ describe Ship do
 
   describe '#s' do
     it 'moves the ship in a negative y direction' do
-      ship = Ship.new(0, 0)
-
       ship.s(13)
 
       assert_equal(-13, ship.y)
@@ -28,21 +26,66 @@ describe Ship do
 
   describe '#e' do
     it 'moves the ship in a positive x direction' do
-      ship = Ship.new(0, 0)
-
       ship.e(13)
 
       assert_equal(13, ship.x)
     end
   end
 
-  describe '#1' do
+  describe '#w' do
     it 'moves the ship in a negative x direction' do
-      ship = Ship.new(0, 0)
-
       ship.w(13)
 
       assert_equal(-13, ship.x)
+    end
+  end
+
+  describe '#l' do
+    it 'points the ship in a new direction' do
+      ship.l(90)
+      assert_equal(270, ship.heading)
+
+      ship.l(360)
+      assert_equal(270, ship.heading)
+
+      ship.l(270)
+      assert_equal(0, ship.heading)
+    end
+  end
+
+  describe '#r' do
+    it 'points the ship in a new direction' do
+      ship.r(90)
+      assert_equal(90, ship.heading)
+
+      ship.r(360)
+      assert_equal(90, ship.heading)
+
+      ship.r(270)
+      assert_equal(0, ship.heading)
+    end
+  end
+
+  describe '#f' do
+    it 'moves the ship in the direction it\'s heading' do
+      ship.f(13)
+      assert_equal(13, ship.x)
+      assert_equal(0, ship.y)
+
+      ship.l(90)
+      ship.f(13)
+      assert_equal(13, ship.x)
+      assert_equal(13, ship.y)
+
+      ship.l(90)
+      ship.f(13)
+      assert_equal(0, ship.x)
+      assert_equal(13, ship.y)
+
+      ship.l(90)
+      ship.f(13)
+      assert_equal(0, ship.x)
+      assert_equal(0, ship.y)
     end
   end
 end
